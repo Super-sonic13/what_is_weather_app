@@ -1,0 +1,6 @@
+Error: Unable to read image from cropped/0
+Error: Unable to read image from cropped/0
+Error: Unable to read image from cropped/0
+Error: Unable to read image from cropped/0
+Error: Unable to read image from cropped/0
+Error: Unable to read image from cropped/0

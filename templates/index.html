@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Weather Prediction</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        <div class="form-group mt-4">
+            <label for="file">Upload Image</label>
+            <input type="file" class="form-control-file" id="file" name="file" accept=".jpg, .jpeg, .png">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="predict('cnn')">Predict with CNN</button>
+        <button type="button" class="btn btn-primary" onclick="predict('rf')">Predict with RandomForest</button>
+    </form>
+
+    <div id="predictions" class="mt-5"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="/static/js/app.js"></script>
+<script>
+    async function predict(model) {
+        const form = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file');
+        const predictionsDiv = document.getElementById('predictions');
+
+        const formData = new FormData(form);
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (model === 'cnn') {
+            predictionsDiv.innerHTML = `<h3 class="mt-4">Predictions:</h3><p>CNN Prediction: ${result.cnn_prediction}</p>`;
+        } else if (model === 'rf') {
+            predictionsDiv.innerHTML = `<h3 class="mt-4">Predictions:</h3><p>RandomForest Prediction: ${result.rf_prediction}</p>`;
+        }
+
+        fileInput.value = ''; // Clear file input
+    }
+</script>
+
+</body>
+</html>
