@@ -4,7 +4,6 @@ from sklearn.tree import DecisionTreeClassifier
 from graphviz import Source
 from sklearn import tree
 import os
-os.environ["PATH"] += os.pathsep + 'C:/Users/Mert/Desktop/graphviz-2.38/release/bin'
 
 # This function seperates into sub classes for getting accuracy for each classes
 def separate_data(_test_data, _test_label, class_num):
